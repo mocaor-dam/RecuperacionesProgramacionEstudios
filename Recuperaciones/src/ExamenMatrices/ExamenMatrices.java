@@ -1,6 +1,6 @@
-import utils.MiEntradaSalida;
+package ExamenMatrices;
 
-import java.sql.SQLOutput;
+import utils.MiEntradaSalida;
 
 public class ExamenMatrices {
     public static void main(String[] args) {

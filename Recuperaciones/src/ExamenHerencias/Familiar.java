@@ -1,0 +1,40 @@
+package ExamenHerencias;
+
+import exceptions.CumpleaniosException;
+import utils.MiEntradaSalida2;
+
+public class Familiar extends Invitado implements Regalador{
+
+    private static final int MIN_HAMBRE_INICIAL = 30;
+    private static final int MAX_HAMBRE_INICIAL = 60;
+
+    private static final int MIN_ABURRIMIENTO_INICIAL = 0;
+    private static final int MAX_ABURRIMIENTO_INICIAL = 50;
+
+    private TipoRegalo regaloQueTrae;
+
+    public Familiar(String nombre) throws CumpleaniosException {
+        super(nombre,
+                MiEntradaSalida2.generaAleatorioEntre(MIN_HAMBRE_INICIAL, MAX_HAMBRE_INICIAL, true),
+                MiEntradaSalida2.generaAleatorioEntre(MIN_ABURRIMIENTO_INICIAL, MAX_ABURRIMIENTO_INICIAL, true));
+
+        if (MiEntradaSalida2.generaAleatorioEntre(1,2,true) == 2){
+            regaloQueTrae = TipoRegalo.DINERO;
+        } else {
+            regaloQueTrae = TipoRegalo.ROPA;
+        }
+    }
+
+    public TipoRegalo getRegaloQueTrae() {
+        return regaloQueTrae;
+    }
+
+    public void setRegaloQueTrae(TipoRegalo regaloQueTrae) {
+        this.regaloQueTrae = regaloQueTrae;
+    }
+
+    @Override
+    public TipoRegalo darRegalo() {
+        return this.regaloQueTrae;
+    }
+}
