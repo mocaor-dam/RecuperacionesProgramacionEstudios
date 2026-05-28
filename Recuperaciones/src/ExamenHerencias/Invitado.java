@@ -27,9 +27,9 @@ public class Invitado {
 
     public void setNivelHambre(int nivelHambre) throws CumpleaniosException {
         if (nivelHambre < 0){
-            throw new CumpleaniosException("El nivel de hambre tiene que ser mayor que 0.");
+            nivelHambre = 0;
         } else if (nivelHambre > 100) {
-            throw new CumpleaniosException("El nivel de hambre tiene que ser menor que 100");
+            nivelHambre = 100;
         }
 
         this.nivelHambre = nivelHambre;
@@ -41,11 +41,29 @@ public class Invitado {
 
     public void setNivelAburrimiento(int nivelAburrimiento) throws CumpleaniosException {
         if (nivelAburrimiento < 0){
-            throw new CumpleaniosException("El nivel de aburrimiento tiene que ser mayor que 0.");
+            nivelAburrimiento = 0;
         } else if (nivelAburrimiento > 100) {
-            throw new CumpleaniosException("El nivel de aburrimiento tiene que ser menor que 100");
+            nivelAburrimiento = 100;
         }
 
         this.nivelAburrimiento = nivelAburrimiento;
     }
+
+    public String reaccionar(Evento evento) throws CumpleaniosException {
+        if (evento != Evento.CORTE_TARTA && evento != Evento.PINIATA){
+            setNivelHambre(getNivelHambre() + 10);
+        }
+        return null;
+    }
+
+    public boolean estaFueraDeJuego(){
+        if (this.nivelHambre >= 100){
+            return true;
+        }
+        if (this.nivelAburrimiento >= 100){
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -37,4 +37,36 @@ public class Familiar extends Invitado implements Regalador{
     public TipoRegalo darRegalo() {
         return this.regaloQueTrae;
     }
+
+    @Override
+    public String reaccionar(Evento evento) throws CumpleaniosException {
+       super.reaccionar(evento);
+        String mensajeRetorno = null;
+
+
+       switch (evento){
+           case CORTE_TARTA -> {
+               setNivelHambre(getNivelHambre() - 20);
+           }
+           case MUSICA_ALTA -> {
+               setNivelAburrimiento(getNivelAburrimiento() + 20);
+           }
+           case MUSICA_BAJA, CHARLITA_COLOQUIAL -> {
+               setNivelAburrimiento(getNivelAburrimiento() - 20);
+           }
+           case BAILE -> {
+               setNivelAburrimiento(getNivelAburrimiento() - 15);
+           }
+           case PINIATA -> {
+               setNivelAburrimiento(getNivelAburrimiento() - 20);
+               setNivelHambre(getNivelHambre() - 10);
+           }
+           case APERTURA_REGALOS -> {
+               setNivelAburrimiento(getNivelAburrimiento() - 20);
+               mensajeRetorno = getNombre() + " regala " + darRegalo();
+           }
+
+       }
+        return mensajeRetorno;
+    }
 }
