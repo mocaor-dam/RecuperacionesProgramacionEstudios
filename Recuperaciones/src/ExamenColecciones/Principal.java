@@ -64,7 +64,11 @@ public class Principal {
     private void mostrarNumeroEmpleadosPorDepartamento() {
         double mediaSalarioBase = empleados.stream().mapToDouble(empleado -> empleado.getUltimaNomina().getSalarioBase()).average().orElse(0.0);
 
+        Map<TDepartamento, Long> resultado = empleados.stream().collect(Collectors.groupingBy(Empleado::getDepartamento, Collectors.counting()));
+
+        /*
         Map<TDepartamento, Long> resultado = empleados.stream().collect(Collectors.groupingBy(Empleado::getDepartamento, Collectors.averagingDouble(Empleado::getUltimaNomina)));
+         */
 
         resultado.forEach((departamento, cantidad) -> System.out.println(departamento + " : " + cantidad));
     }
