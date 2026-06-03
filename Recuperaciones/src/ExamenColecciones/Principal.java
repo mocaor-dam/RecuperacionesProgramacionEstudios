@@ -1,10 +1,8 @@
 package ExamenColecciones;
 
 import java.time.YearMonth;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
     private List<Empleado> empleados;
@@ -64,16 +62,25 @@ public class Principal {
     }
 
     private void mostrarNumeroEmpleadosPorDepartamento() {
+        double mediaSalarioBase = empleados.stream().mapToDouble(empleado -> empleado.getUltimaNomina().getSalarioBase()).average().orElse(0.0);
 
+        Map<TDepartamento, Long> resultado = empleados.stream().collect(Collectors.groupingBy(Empleado::getDepartamento, Collectors.averagingDouble(Empleado::getUltimaNomina)));
+
+        resultado.forEach((departamento, cantidad) -> System.out.println(departamento + " : " + cantidad));
     }
 
     private double porcentajeRetencionTrabajadoresNuevos() {
-        //TODO
-        return 0.0;
+        YearMonth fechaHace1anio = YearMonth.now().minusMonths(12);
+
+        return  empleados.stream().filter(empleado -> empleado.fechaPrimeraNomina().isAfter(fechaHace1anio))
+                .mapToDouble(empleado -> empleado.getUltimaNomina().getPorcentajeRetencion())
+                .average().orElse(0.0);
     }
 
     private void empleadosQueMasCobran() {
+        double salarioMaximo = empleados.stream().mapToDouble(empleado -> empleado.getUltimaNomina().getSalarioBase()).max().orElse(0.0);
 
+        empleados.stream().filter(empleado -> empleado.getUltimaNomina().getSalarioBase() == salarioMaximo).forEach(System.out::println);
     }
 
     private void costeTotalSalarios(YearMonth fecha) {
