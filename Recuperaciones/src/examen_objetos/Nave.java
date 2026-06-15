@@ -59,7 +59,6 @@ public class Nave {
     }
 
     public boolean hayUnaAntimateriaPorDeposito(){
-        int numAntimateria = 0;
         int contador = 0;
         for (int i = 0; i < depositos.length; i++) {
            if (depositos[i].contarCartuchosDeTipo("antimateria") == 1){
